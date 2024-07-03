@@ -12,7 +12,7 @@ fn main() -> Result<()> {
     let req1 = req_builder.clone().build();
     println!("{:#?}", req1);
 
-    // let req2 = req_builder.method("POST").build()?; Won't compile due to seal
+    // let req2 = req_builder.method("POST").build(); Won't compile due to seal
     let req2 = req_builder.build();
     println!("{:#?}", req2);
 
