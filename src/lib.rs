@@ -43,9 +43,10 @@ pub struct RequestBuilder<U, M, S> {
     _marker_seal: PhantomData<S>,
 }
 
-/// New
+/// Constructor
+///
+/// New method is available only for `NoUrl` and `NoMethod` states.
 impl RequestBuilder<NoUrl, NoMethod, NotSealed> {
-    /// New method is available only for `NoUrl` and `NoMethod` states
     pub fn new() -> Self {
         RequestBuilder::default()
     }
@@ -56,9 +57,7 @@ impl RequestBuilder<NoUrl, NoMethod, NotSealed> {
 /// Building is only possible when the url and method are set, and
 /// the builder is sealed.
 impl RequestBuilder<Url, Method, Sealed> {
-    /// Build method is available only for `Url` and `Method` states
     pub fn build(self) -> Request {
-        // Runtime check
         Request {
             url: self.url.0,
             method: self.method.0,
@@ -82,6 +81,8 @@ impl<U, M> RequestBuilder<U, M, NotSealed> {
 }
 
 /// Setter methods
+///
+/// Setter methods are only available when in `NotSealed` state.
 impl<U, M> RequestBuilder<U, M, NotSealed> {
     pub fn url(self, url: impl Into<String>) -> RequestBuilder<Url, M, NotSealed> {
         RequestBuilder {
